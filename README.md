@@ -1,5 +1,5 @@
-# MicroGeiger: I2C Dosimeter running with CircuitPython
-Really compact geiger running CircuitPython.
+# MicroGeiger: Damn small radiation dosimeter
+This is my writeup on how to make a really compact geiger counter running CircuitPython.
 
 This project was funded by the Hack Club "[Winter hardware wonderland](https://hackclub.com/winter)" project, which provided me with the funding to afford the hardware used.
 
