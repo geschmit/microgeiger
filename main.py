@@ -15,7 +15,7 @@ from rainbowio import colorwheel
 from digitalio import DigitalInOut, Direction, Pull
 from busio import SPI, I2C
 from time import sleep
-from configparser import ConfigParser
+from config import geiger, boot, sys
 from board import (
     # Display SPI interface
     SCK,
@@ -56,13 +56,9 @@ print("HELLO- MicroGeiger")
 print("(c) 2022 geschmit")
 print("Funded by Hack Club!")
 
-# configurations
-conf = ConfigParser() # ze config
-conf.read("config.ini")
-
 bt_cons = None
 bt_buff = []
-if conf.getboolean("sys","enable_bt") == True:
+if boot.enable_bt == True:
     from adafruit_ble import BLERadio
     from adafruit_ble.advertising.standard import ProvideServicesAdvertisement  
     from adafruit_ble.services.nordic import UARTService    
