@@ -5,7 +5,7 @@ from geiger import Geiger
 
 # display
 from displayio import FourWire
-from adafruit_ili9341 import ILI9341
+from adafruit_st7789 import ST7789
 
 # neopixel
 from neopixel import NeoPixel
@@ -23,9 +23,10 @@ from board import (
     MISO,
 
     # Additional display pins
-    D10, # Command
-    D9,  # CS
-    D6,  # Reset
+    D9,   # SDCS
+    D10,  # DC/Command
+    D11,  # RESET
+    D12,  # TCS/Chip select
 
     # I2C interface
     SCL,
@@ -38,15 +39,15 @@ from board import (
 )
 
 # LEDs and display
-pix = NeoPixel(NEOPIXEL,1,brightness=0.3,auto_write=False)
+pix = NeoPixel(NEOPIXEL,1,brightness=1,auto_write=False)
 bLed = DigitalInOut(BLUE_LED)
 rLed = DigitalInOut(RED_LED)
 
 bus = FourWire(
-    SPI(clock=SCK,MOSI=MOSI,MISO=MISO), command=D10, chip_select=D9, reset=D6
+    SPI(clock=SCK,MOSI=MOSI,MISO=MISO), command=D10, chip_select=D12, reset=D11,
 )
 
-disp = ILI9341(bus, width=320, height=240)
+disp = ST7789(bus, width=320, height=170)
 
 # set this up last cuz it'll prob take the longest
 geig = Geiger(i2c=I2C(scl=SCL, sda=SDA))
@@ -81,8 +82,10 @@ while True:
                 if str(readByte) == "\n":
                     # cmd parse func here
                     # doCmd(str(bt_buff))
+                    bt_buff.append("\n")
+                    bt_cons.write(bt_buff)
                     bt_cons.reset_input_buffer()
                     bt_buff = []
                 else:
                     bt_buff.append(readByte)
-    pass
+    
