@@ -10,7 +10,6 @@ TODO
 Commands can be inputted via UART console after connecting to the nRF board on the geiger.
 | Category | Name | Desc |
 | --- | --- | --- |
-| System | `reboot` | Reboots geiger. |
 
 # Disclaimer
 - The SBM-20 tube is known to break when exposed to large amounts of radiation.
