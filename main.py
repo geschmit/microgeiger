@@ -1,5 +1,4 @@
 # (c) 2022 geschmit
-
 # geiger module
 from geiger import Geiger
 
